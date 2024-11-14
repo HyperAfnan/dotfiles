@@ -43,3 +43,19 @@ ff() {
 	IFS=$'\n' files=($(fzf --query="$1" --multi --select-1 --exit-0 --prompt 'files:'))
 	[[ -n "$files" ]] && ${EDITOR} "${files[@]}"
 }
+
+cdf() {
+   cd $(fd --type d --hidden --exclude .git --exclude node_module --exclude .cache --exclude .npm  | fzf)
+}
+
+addToPath() {
+    if [[ "$PATH" != *"$1"* ]]; then
+        export PATH=$PATH:$1
+    fi
+}
+
+restart() {
+    source ~/.config/zsh/.zshrc
+    clear
+    echo "Shell Restarted"
+}

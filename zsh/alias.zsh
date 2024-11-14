@@ -1,6 +1,5 @@
 alias c="clear"
 alias ls="eza -a --icons"
-alias la="eza -a --icons"
 alias q="exit"
 
 alias cd="z"
@@ -30,6 +29,4 @@ alias mkdir="mkdir -p"
 
 alias fzf="fzf --preview 'bat --color=always --style=numbers --line-range=:500 {}'"
 
-alias chrome="am start com.android.chrome"
-alias ig="am start com.instagram.android/com.instagram.android.activity.MainTabActivity"
-alias discord='am start com.discord/com.discord.app.AppActivity\$Main'
+alias mux="tmuxinator"
