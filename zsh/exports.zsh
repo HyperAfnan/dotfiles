@@ -11,6 +11,7 @@ export NVIMRC=~/.config/nvim/init.lua
 export zshrc=~/.config/zsh/.zshrc
 
 export PATH="/data/data/com.termux/files/home/.local/bin":$PATH
+export PATH="/data/data/com.termux/files/home/.local/lib/azure-cli/bin":$PATH
 export PATH="/data/data/com.termux/files/home/.cargo/bin":$PATH
 
 export USER=afnan
@@ -23,3 +24,6 @@ export LC_ALL="en_US.UTF-8"
 export STARSHIP_CONFIG=~/.config/starship/starship.toml
 eval "$(zoxide init zsh)" 
 export XDG_RUNTIME_DIR="/data/data/com.termux/files/usr/tmp/"
+export NODE_OPTIONS='$NODE_OPTIONS --experimental-vm-modules'
+export XDG_CONFIG_HOME="$HOME/.config"
+export GIT_CONFIG_GLOBAL="$HOME/.config/git/gitconfig"

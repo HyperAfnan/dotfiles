@@ -15,6 +15,9 @@ alias apsh="apt show"
 alias apu="apt update -y && apt upgrade -y"
 alias apar="apt autoremove"
 
+alias npm='npq-hero'
+alias yarn="NPQ_PKG_MGR=yarn npq-hero"
+
 alias y="yarn"
 alias yga="yarn global add"
 alias ygrm="yarn global remove"
@@ -27,6 +30,6 @@ alias v="nvim"
 
 alias mkdir="mkdir -p"
 
-alias fzf="fzf --preview 'bat --color=always --style=numbers --line-range=:500 {}'"
+alias fzf="fzf --bind 'tab:toggle+up' --preview 'bat --color=always --style=numbers --line-range=:500 {}'"
 
 alias mux="tmuxinator"

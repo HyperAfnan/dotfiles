@@ -1,4 +1,4 @@
---theme="Catppuccin Mocha"
+--theme="tokyonight"
 --style="numbers,changes,header"
 --color="always"
 --italic-text="always"
