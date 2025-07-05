@@ -15,8 +15,10 @@ alias apsh="apt show"
 alias apu="apt update -y && apt upgrade -y"
 alias apar="apt autoremove"
 
-alias npm='npq-hero'
-alias yarn="NPQ_PKG_MGR=yarn npq-hero"
+if command -v npq-hero >/dev/null 2>&1; then
+  alias npm='npq-hero'
+  alias yarn="NPQ_PKG_MGR=yarn npq-hero"
+fi
 
 alias y="yarn"
 alias yga="yarn global add"
@@ -33,3 +35,5 @@ alias mkdir="mkdir -p"
 alias fzf="fzf --bind 'tab:toggle+up' --preview 'bat --color=always --style=numbers --line-range=:500 {}'"
 
 alias mux="tmuxinator"
+
+alias mongo_chai=" mongosh 'mongodb+srv://afnanmalik2712:IYMUgLkBj7rWqnic@cluster0.hzsb6sa.mongodb.net/videotube'"

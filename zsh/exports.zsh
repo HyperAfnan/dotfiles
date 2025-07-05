@@ -10,20 +10,19 @@ export NVIMCONF=~/.config/nvim
 export NVIMRC=~/.config/nvim/init.lua
 export zshrc=~/.config/zsh/.zshrc
 
-export PATH="/data/data/com.termux/files/home/.local/bin":$PATH
-export PATH="/data/data/com.termux/files/home/.local/lib/azure-cli/bin":$PATH
-export PATH="/data/data/com.termux/files/home/.cargo/bin":$PATH
+export PATH="/home/afnan/.local/bin":$PATH
+export PATH="/home/afnan/.cargo/bin":$PATH
 
-export USER=afnan
-export HOSTNAME=android
-export THEME="TokyoNight Storm"
-
-export LANG="en_US.UTF-8"
-export LC_ALL="en_US.UTF-8"
+export LANG=en_US.UTF-8
+export LC_ALL=en_US.UTF-8
+export LC_CTYPE=en_US.UTF-8
 
 export STARSHIP_CONFIG=~/.config/starship/starship.toml
-eval "$(zoxide init zsh)" 
-export XDG_RUNTIME_DIR="/data/data/com.termux/files/usr/tmp/"
-export NODE_OPTIONS='$NODE_OPTIONS --experimental-vm-modules'
 export XDG_CONFIG_HOME="$HOME/.config"
 export GIT_CONFIG_GLOBAL="$HOME/.config/git/gitconfig"
+
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+eval "$(zoxide init zsh)" 
+
+export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"

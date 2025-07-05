@@ -40,8 +40,11 @@ gitignore() {
 }
 
 ff() {
-	IFS=$'\n' files=($(fzf --query="$1" --multi --select-1 --exit-0 --prompt 'files:'))
-	[[ -n "$files" ]] && ${EDITOR} "${files[@]}"
+  IFS=$'\n' files=($(
+    find . \( -path '*/node_modules/*' -prune \) -o -type f -print \
+    | fzf --query="$1" --multi --select-1 --exit-0 --prompt 'files:'
+  ))
+  [[ -n "$files" ]] && ${EDITOR} "${files[@]}"
 }
 
 cdf() {
