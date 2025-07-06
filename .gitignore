@@ -1,9 +1,9 @@
 nvim
-gh
 tmux/plugins
-tmuxinator/
+tmuxinator
 yarn
 github-copilot
 simple-update-notifier
 nodemon.json
 nvm
+gh/hosts.yml

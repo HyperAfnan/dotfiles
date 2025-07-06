@@ -35,5 +35,3 @@ alias mkdir="mkdir -p"
 alias fzf="fzf --bind 'tab:toggle+up' --preview 'bat --color=always --style=numbers --line-range=:500 {}'"
 
 alias mux="tmuxinator"
-
-alias mongo_chai=" mongosh 'mongodb+srv://afnanmalik2712:IYMUgLkBj7rWqnic@cluster0.hzsb6sa.mongodb.net/videotube'"
