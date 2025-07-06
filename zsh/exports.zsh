@@ -20,6 +20,8 @@ export LC_CTYPE=en_US.UTF-8
 export STARSHIP_CONFIG=~/.config/starship/starship.toml
 export XDG_CONFIG_HOME="$HOME/.config"
 export GIT_CONFIG_GLOBAL="$HOME/.config/git/gitconfig"
+export EZA_CONFIG_DIR="$HOME/.config/eza"
+export EZA_COLORS="$HOME/.config/eza/theme.yml"
 
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 eval "$(zoxide init zsh)" 
