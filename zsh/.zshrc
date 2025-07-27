@@ -22,3 +22,4 @@ source ~/.config/zsh/completions.zsh
 source ~/.config/zsh/lf-icons.zsh
 
 source ~/.config/zsh/prompt.zsh
+source "$XDG_DATA_HOME/dfx/env"

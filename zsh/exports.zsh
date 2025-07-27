@@ -1,4 +1,4 @@
-export MANPAGER="sh -c 'col -bx | bat -l man -p'"
+# export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 export EDITOR="nvim"
 export VISUAL="nvim"
 
@@ -12,6 +12,7 @@ export zshrc=~/.config/zsh/.zshrc
 
 export PATH="/home/afnan/.local/bin":$PATH
 export PATH="/home/afnan/.cargo/bin":$PATH
+export PATH="/home/afnan/.local/share/gem/ruby/3.4.0/bin":$PATH
 
 export LANG=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
@@ -22,8 +23,9 @@ export XDG_CONFIG_HOME="$HOME/.config"
 export GIT_CONFIG_GLOBAL="$HOME/.config/git/gitconfig"
 export EZA_CONFIG_DIR="$HOME/.config/eza"
 export EZA_COLORS="$HOME/.config/eza/theme.yml"
+export ELECTRON_OZONE_PLATFORM_HINT=wayland
 
-eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+# eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 eval "$(zoxide init zsh)" 
 
 export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"

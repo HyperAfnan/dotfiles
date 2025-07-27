@@ -29,9 +29,12 @@ alias ygu="yarn global upgrade"
 alias rm="rm -rf"
 
 alias v="nvim"
+alias neovim="nvim"
 
 alias mkdir="mkdir -p"
 
 alias fzf="fzf --bind 'tab:toggle+up' --preview 'bat --color=always --style=numbers --line-range=:500 {}'"
 
 alias mux="tmuxinator"
+
+alias brave="brave --enable-features=UseOzonePlatform --ozone-platform=wayland"
