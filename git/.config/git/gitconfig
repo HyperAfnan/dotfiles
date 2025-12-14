@@ -1,0 +1,13 @@
+[user]
+	email = afnanmalik2712@gmail.com
+	name = HyperAfnan
+
+[core]
+   editor = nvim
+   excludesfile  = ~/.config/git/gitignore_global
+
+[color]
+   ui = auto
+
+[push]
+   default = current
