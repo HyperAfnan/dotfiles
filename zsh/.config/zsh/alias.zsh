@@ -38,3 +38,7 @@ alias fzf="fzf --bind 'tab:toggle+up' --preview 'bat --color=always --style=numb
 alias mux="tmuxinator"
 
 alias brave="brave --enable-features=UseOzonePlatform --ozone-platform=wayland"
+
+alias pacman-fzf-install="pacman -Slq | fzf --multi --preview 'pacman -Si {1}' | xargs -ro sudo pacman -S"
+alias pacman-fzf-remove="pacman -Qqe | fzf --multi --preview 'pacman -Qi {1}' | xargs -ro sudo pacman -Rns"
+alias pacman-fzf-remove-all="pacman -Qq | fzf --multi --preview 'pacman -Qi {1}' | xargs -ro sudo pacman -Rns"

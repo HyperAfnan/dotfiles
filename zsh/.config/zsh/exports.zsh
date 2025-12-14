@@ -11,7 +11,7 @@ export NVIMRC=~/.config/nvim/init.lua
 export zshrc=~/.config/zsh/.zshrc
 
 export PATH="/home/afnan/.local/bin":$PATH
-# export PATH="/home/afnan/.cargo/bin":$PATH
+export PATH="/home/afnan/.cargo/bin":$PATH
 # export PATH="/home/afnan/.local/share/gem/ruby/3.4.0/bin":$PATH
 
 export LANG=en_US.UTF-8
@@ -32,3 +32,6 @@ export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || pr
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
 
 export HYPRSHOT_DIR=/home/afnan/Media/screenshots
+export WAKATIME_HOME=/home/afnan/.config/wakatime
+
+export HYPRSWITCHER_LOG=quiet

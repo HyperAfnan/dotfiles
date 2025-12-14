@@ -17,15 +17,13 @@ zstyle ':completion:*' menu select
 _comp_options+=(globdots)
 
 zinit light zdharma-continuum/fast-syntax-highlighting
-
 zinit load zsh-users/zsh-autosuggestions
-
 zinit load hlissner/zsh-autopair
-
 zinit load zsh-users/zsh-history-substring-search
-
 zinit load MichaelAquilina/zsh-you-should-use
-
 zinit load changyuheng/zsh-interactive-cd
-
 zinit load zdharma-continuum/history-search-multi-word
+
+zinit snippet OMZP::git
+zinit snippet OMZP::dirhistory
+zinit snippet OMZP::web-search
