@@ -88,6 +88,7 @@ pipewire-jack 1:1.4.9-2
 pipewire-pulse 1:1.4.9-2
 polkit-gnome 0.105-12
 polkit-kde-agent 6.5.4-1
+powertop 2.15-2
 prettier 3.7.3-1
 proton-cachyos 1:10.0.20251126-1
 puddletag 2.5.0-1
