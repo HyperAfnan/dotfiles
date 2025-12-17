@@ -4,8 +4,7 @@
         "reload_style_on_change": true,
         "modules-left": ["clock","custom/pacman", "custom/notification","tray"],
         "modules-center": ["hyprland/workspaces"],
-        "modules-right": ["group/expand","bluetooth","network","battery"],
-
+        "modules-right": ["group/expand","bluetooth","network", "battery"],
 
         "hyprland/workspaces": {
             "format": "{icon}",
@@ -33,13 +32,14 @@
             }
         },
         "network": {
-            "format-wifi": "",
-            "format-ethernet":"",
+            "format-wifi": " {bandwidthDownBytes}",
+            "format-ethernet":" {bandwidthDownBytes}",
             "format-disconnected": "",
             "tooltip-format-disconnected": "Error",
             "tooltip-format-wifi": "{essid} ({signalStrength}%) ",
             "tooltip-format-ethernet": "{ifname} 🖧 ",
-            "on-click": "nmgui"
+            "on-click": "nmgui",
+            "interval": 1
         },
         "bluetooth": {
             "format-on": "󰂯",
@@ -82,26 +82,26 @@
             "signal": 8,
             "tooltip": false,
         },
-  "custom/notification": {
-    "tooltip": true,
-    "format": "<span size='16pt'>{icon}</span>",
-    "format-icons": {
-      "notification": "󱅫",
-      "none": "󰂜",
-      "dnd-notification": "󰂠",
-      "dnd-none": "󰪓",
-      "inhibited-notification": "󰂛",
-      "inhibited-none": "󰪑",
-      "dnd-inhibited-notification": "󰂛",
-      "dnd-inhibited-none": "󰪑"
-    },
-    "return-type": "json",
-    "exec-if": "which swaync-client",
-    "exec": "swaync-client -swb",
-    "on-click": "swaync-client -t -sw",
-    "on-click-right": "swaync-client -d -sw",
-    "escape": true
-  },
+      "custom/notification": {
+         "tooltip": true,
+         "format": "<span size='16pt'>{icon}</span>",
+         "format-icons": {
+            "notification": "󱅫",
+            "none": "󰂜",
+            "dnd-notification": "󰂠",
+            "dnd-none": "󰪓",
+            "inhibited-notification": "󰂛",
+            "inhibited-none": "󰪑",
+            "dnd-inhibited-notification": "󰂛",
+            "dnd-inhibited-none": "󰪑"
+         },
+         "return-type": "json",
+         "exec-if": "which swaync-client",
+         "exec": "swaync-client -swb",
+         "on-click": "swaync-client -t -sw",
+         "on-click-right": "swaync-client -d -sw",
+         "escape": true
+      },
         "custom/expand": {
             "format": "",
             "tooltip": false
@@ -142,5 +142,9 @@
             "icon-size": 14,
             "spacing": 10
         },
+        "custom/netspeed": {
+           "exec": "/home/afnan/dotfiles/waybar/.config/waybar/scripts/network-speed.sh wlan0 1",
+            "format-wifi": "{icon} {ifname}",
+            "interval": 1,
+      },
 } 
-

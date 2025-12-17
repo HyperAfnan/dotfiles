@@ -35,3 +35,5 @@ export HYPRSHOT_DIR=/home/afnan/Media/screenshots
 export WAKATIME_HOME=/home/afnan/.config/wakatime
 
 export HYPRSWITCHER_LOG=quiet
+
+export DXVK_FILTER_DEVICE_NAME=NVIDIA
