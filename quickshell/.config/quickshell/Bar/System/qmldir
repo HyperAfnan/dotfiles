@@ -1,0 +1,2 @@
+singleton NetworkManager 1.0 NetworkManager.qml
+singleton PywalColors 1.0 PywalColors.qml

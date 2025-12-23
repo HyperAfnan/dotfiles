@@ -1,4 +1,4 @@
-#files: 1231	version: 5.9
+#files: 1237	version: 5.9
 
 _comps=(
 '-' '_precommand'
@@ -120,6 +120,7 @@ _comps=(
 'bpython-urwid' '_bpython'
 '-brace-parameter-' '_brace_parameter'
 'brctl' '_brctl'
+'brew' '_brew'
 'bsdgrep' '_grep'
 'bsdtar' '_tar'
 'btdownloadcurses' '_bittorrent'
@@ -1050,6 +1051,7 @@ _comps=(
 'paste' '_paste'
 'pasuspender' '_pulseaudio'
 'patch' '_patch'
+'patchelf' '_patchelf'
 'patool' '_patool'
 'pax' '_pax'
 'pcat' '_pack'
@@ -1669,6 +1671,7 @@ _comps=(
 'wiggle' '_wiggle'
 'wipefs' '_wipefs'
 'wl-copy' '_wl-copy'
+'wlogout' '_wlogout'
 'wl-paste' '_wl-paste'
 'wodim' '_cdrecord'
 'wpa_cli' '_wpa_cli'
@@ -1734,6 +1737,7 @@ _comps=(
 'yarn' '_yarn'
 'yash' '_sh'
 'yay' '_yay'
+'yazi' '_yazi'
 'ypbind' '_yp'
 'ypcat' '_yp'
 'ypmatch' '_yp'
@@ -1746,6 +1750,7 @@ _comps=(
 'ypxfr' '_yp'
 'ytalk' '_other_accounts'
 'zargs' '_zargs'
+'zathura' '_zathura'
 'zcalc' '_zcalc'
 '-zcalc-line-' '_zcalc_line'
 'zcash-cli' '_zcash-cli'
@@ -1957,24 +1962,25 @@ autoload -Uz _afew _age _android _archlinux-java _artisan \
             _vipw _virtualbox _vnstat _wdctl _wemux \
             _wg-quick _xsel _yamllint _yarn _zcash-cli \
             _zinit _zramctl _ast-grep _bat _bluetoothctl \
-            _bootctl _busctl _bwrap _cargo _checkupdates \
-            _coredumpctl _ctr _curl _dkms _docker \
-            _dunst _dunstctl _eza _fd _gh \
-            _ghostty _hostnamectl _hyprctl _hyprpm _img2sixel \
-            _insmod _journalctl _kernel-install _kitty _lf \
-            _localectl _loginctl _lsmod _luarocks _luarocks-admin \
-            _machinectl _mako _makoctl _meson _mkinitcpio \
-            _mpv _networkctl _ninja _oomctl _p11-kit \
-            _paccache _pacdiff _paclist _paclog-pkglist _pacman \
-            _pacscripts _pacsearch _pacsort _pactree _pip \
-            _playerctl _pulseaudio _rankmirrors _resolvectl _rg \
-            _rmmod _ruff _run0 _sd_bus_address _sd_hosts_or_user_at_host \
-            _sd_machines _sd_outputmodes _sd_unit_files _sensors _sensors-detect \
-            _starship _swaync _swaync-client _swww _systemctl \
-            _systemd _systemd-analyze _systemd-delta _systemd-inhibit _systemd-nspawn \
-            _systemd-path _systemd-run _systemd-tmpfiles _timedatectl _trust \
-            _udevadm _udisks2 _updpkgsums _upower _uv \
-            _varlinkctl _wl-copy _wl-paste _wpctl _yay \
+            _bootctl _brew _busctl _bwrap _cargo \
+            _checkupdates _coredumpctl _ctr _curl _dkms \
+            _docker _dunst _dunstctl _eza _fd \
+            _gh _ghostty _hostnamectl _hyprctl _hyprpm \
+            _img2sixel _insmod _journalctl _kernel-install _kitty \
+            _lf _localectl _loginctl _lsmod _luarocks \
+            _luarocks-admin _machinectl _mako _makoctl _meson \
+            _mkinitcpio _mpv _networkctl _ninja _oomctl \
+            _p11-kit _paccache _pacdiff _paclist _paclog-pkglist \
+            _pacman _pacscripts _pacsearch _pacsort _pactree \
+            _patchelf _pip _playerctl _pulseaudio _rankmirrors \
+            _resolvectl _rg _rmmod _ruff _run0 \
+            _sd_bus_address _sd_hosts_or_user_at_host _sd_machines _sd_outputmodes _sd_unit_files \
+            _sensors _sensors-detect _starship _swaync _swaync-client \
+            _swww _systemctl _systemd _systemd-analyze _systemd-delta \
+            _systemd-inhibit _systemd-nspawn _systemd-path _systemd-run _systemd-tmpfiles \
+            _timedatectl _trust _udevadm _udisks2 _updpkgsums \
+            _upower _uv _varlinkctl _wl-copy _wlogout \
+            _wl-paste _wpctl _yay _yazi _zathura \
             _zoxide _cdr _all_labels _all_matches _alternative \
             _approximate _arg_compile _arguments _bash_completions _cache_invalid \
             _call_function _combination _complete _complete_debug _complete_help \

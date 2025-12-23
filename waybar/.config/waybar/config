@@ -4,7 +4,7 @@
         "reload_style_on_change": true,
         "modules-left": ["clock","custom/pacman", "custom/notification","tray"],
         "modules-center": ["hyprland/workspaces"],
-        "modules-right": ["group/expand","bluetooth","network", "battery"],
+        "modules-right": ["group/expand","bluetooth","network", "battery", "custom/powerButton"],
 
         "hyprland/workspaces": {
             "format": "{icon}",
@@ -147,4 +147,9 @@
             "format-wifi": "{icon} {ifname}",
             "interval": 1,
       },
+      "custom/powerButton": {
+         "format": "",
+         "tooltip": false,
+         "on-click": "wlogout",
+      }
 } 

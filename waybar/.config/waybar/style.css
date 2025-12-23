@@ -146,6 +146,10 @@ tooltip {
     color:@color7;
 
 }
+#custom-powerButton{
+    padding: 0px 5px;
+    transition: all .3s ease; 
+}
 #custom-endpoint{
     color:transparent;
     text-shadow: 0px 0px 1.5px rgba(0, 0, 0, 1);
