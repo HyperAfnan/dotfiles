@@ -39,6 +39,8 @@ Row {
           color: Config.colors.success
           scale: parent.active ? 1 : 0
           opacity: parent.active ? 1 : 0
+          font.pointSize: 14
+          text: "󱐋"
 
           Behavior on scale {
             NumberAnimation {
@@ -53,24 +55,6 @@ Row {
             }
           }
         }
-      }
-
-      // Charging Icon
-      Row {
-         spacing: Config.spacing.extraSmall
-         anchors.verticalCenter: parent.verticalCenter
-
-         Text {
-            visible: modelData.state === 1
-            verticalAlignment: Text.AlignVCenter
-            color: Config.colors.fg
-            font {
-               family: Config.font.family
-               pixelSize: Config.font.size
-               bold: Config.font.bold
-            }
-            text: "󱐋"
-         }
       }
 
       // Battery Icon
@@ -94,7 +78,7 @@ Row {
             clip: true
 
             Rectangle {
-              width: batShell.width
+              width: parent.width // Use parent's width for correct fill
               height: batShell.height
               radius: batShell.radius
               color: p < 0.2 ? Config.colors.destructive : Config.colors.success
@@ -110,6 +94,7 @@ Row {
             font.weight: 800
             font.pointSize: 10
             color: Config.colors.batteryText
+            Accessible.name: "Battery at " + txt
           }
         }
 

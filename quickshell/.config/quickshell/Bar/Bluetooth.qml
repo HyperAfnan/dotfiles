@@ -17,6 +17,7 @@ Item {
     property bool bluetoothEnabled: false
     property string connectedDevice: ""
     property int connectedCount: 0
+    property bool menuOpen: false
 
     Component.onCompleted: { checkBluetoothStatus.running = true }
 
@@ -58,6 +59,11 @@ Item {
                 }
             }
         }
+    }
+
+    Process {
+       running: menuOpen
+       command: ["blueman-manager"]
     }
 
     Process {
@@ -114,10 +120,17 @@ Item {
         anchors.fill: parent
         hoverEnabled: true
         cursorShape: Qt.PointingHandCursor
-
         onEntered: { root.isHovered = true }
         onExited: { root.isHovered = false }
-        onClicked: { toggleBluetooth.running = true }
+        acceptedButtons: Qt.LeftButton | Qt.RightButton
+        onClicked: (mouse) => {
+           if (mouse.button === Qt.LeftButton) {
+               root.menuOpen = !root.menuOpen
+           }
+           else if (mouse.button === Qt.RightButton) {
+               toggleBluetooth.running = true
+           }
+        }
     }
 
     Process {

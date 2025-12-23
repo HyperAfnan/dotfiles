@@ -24,24 +24,21 @@ QtObject {
   }
 
   colors: QtObject {
-    // Background with 80% opacity using pywal background color
     property color bg: System.PywalColors.bgWithAlpha(0.8)
 
-    // Pywal-based colors
     property string fg: System.PywalColors.foreground
     property string muted: System.PywalColors.color8
     property string bright: System.PywalColors.color7
     property string accent: System.PywalColors.color4
     property string light: System.PywalColors.color7
 
-    // Semantic colors from pywal palette
     property string success: System.PywalColors.color2
     property string primary: System.PywalColors.color4
     property string secondary: System.PywalColors.color5
     property string destructive: System.PywalColors.color1
 
-    // Battery text should contrast with success color
     property string batteryText: System.PywalColors.color0
+    property string black: "#000000"
   }
 
   radius: QtObject {
