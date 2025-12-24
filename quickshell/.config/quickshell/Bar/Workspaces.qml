@@ -16,10 +16,7 @@ RowLayout {
                 property bool beingHovered: false
 
                 text: index + 1
-                color: isActive
-                    ? Config.colors.fg
-                    : Config.colors.fg
-
+                color: Config.colors.fg
                 Layout.alignment: Qt.AlignVCenter
                 font {
                     family: Config.font.family

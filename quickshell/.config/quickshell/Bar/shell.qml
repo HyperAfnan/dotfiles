@@ -8,8 +8,20 @@ PanelWindow {
     anchors.left: true
     anchors.right: true
 
+    margins.top: Config.ui.showNotch ? 0 : 8
+    margins.left: Config.ui.showNotch ? 0 : 8
+    margins.right: Config.ui.showNotch ? 0 : 8
+
     implicitHeight: 30
-    color: Config.colors.bg
+    color: Config.ui.showNotch ? Config.colors.bg : "transparent"
+
+    Rectangle {
+        visible: !Config.ui.showNotch
+        id: barBackground
+        anchors.fill: parent
+        color: Config.colors.bg
+        radius: 10
+    }
 
     Notch {}
     RowLayout {
@@ -42,7 +54,11 @@ PanelWindow {
             Layout.fillWidth: true
         }
 
+        SystemStats {}
+        Screenshot {}
         Wifi {}
+        Speaker {}
+        Microphone {}
         Bluetooth {}
         Battery {}
         Clock {}

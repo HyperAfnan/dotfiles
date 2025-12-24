@@ -7,14 +7,16 @@ import "./System" as System
 QtObject {
   id: root
 
+  property QtObject font
   property QtObject colors
   property QtObject radius
   property QtObject spacing
-  property QtObject padding
   property QtObject sizes
-  property QtObject durations
-  property QtObject transparency
-  property QtObject font
+  property QtObject ui
+
+  ui : QtObject {
+    property bool showNotch: true
+  }
 
   font: QtObject {
     property string family: Fonts.sFProRounded.family
@@ -24,7 +26,7 @@ QtObject {
   }
 
   colors: QtObject {
-    property color bg: System.PywalColors.bgWithAlpha(0.8)
+    property color bg: System.PywalColors.bgWithAlpha(0.7)
 
     property string fg: System.PywalColors.foreground
     property string muted: System.PywalColors.color8
@@ -58,15 +60,6 @@ QtObject {
     property int extraLarge: 24 * scale
   }
 
-  padding: QtObject {
-    property real scale: 1
-    property int extraSmall: 5 * scale
-    property int small: 7 * scale
-    property int normal: 10 * scale
-    property int large: 12 * scale
-    property int extraLarge: 15 * scale
-  }
-
   sizes: QtObject {
     property real scale: 1
     property int small: 11 * scale
@@ -75,20 +68,5 @@ QtObject {
     property int larger: 15 * scale
     property int large: 20 * scale
     property int extraLarge: 28 * scale
-  }
-
-  durations: QtObject {
-    property real scale: 1
-    property int extraFast: 100 * scale
-    property int fast: 200 * scale
-    property int normal: 400 * scale
-    property int slow: 600 * scale
-    property int extraSlow: 1000 * scale
-  }
-
-  transparency: QtObject {
-    property bool enabled: true
-    property real base: 0.8
-    property real layers: 0.4
   }
 }

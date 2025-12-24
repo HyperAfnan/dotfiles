@@ -1,22 +1,28 @@
 import QtQuick
 import QtQuick.Layouts
+import Quickshell
+import Quickshell.Io
 import "./System" as System
 
 Item {
     id: root
 
     Layout.alignment: Qt.AlignVCenter
+    Layout.fillHeight: true
     implicitWidth: Config.sizes.large
-    implicitHeight: Config.sizes.large
     visible: true
 
     property bool isHovered: false
+    property bool isMuted: System.Mic.isMuted
+    property bool volume: System.Mic.volume
+    readonly property string micIcon: isMuted ? "󰍭" : "󰍬"
+
     Text {
-        id: btIcon
+        id: microphoneIcon
         anchors.verticalCenter: parent.verticalCenter
         anchors.horizontalCenter: parent.horizontalCenter
-        text: System.BluetoothManager.bluetoothEnabled ? "󰂯" : "󰂲"
-        color: Config.colors.fg
+        text: root.micIcon
+        color: root.isMuted ? Config.colors.destructive : Config.colors.fg
         font.family: Config.font.family
         font.pixelSize: Config.sizes.normal
 
@@ -36,17 +42,19 @@ Item {
         anchors.fill: parent
         hoverEnabled: true
         cursorShape: Qt.PointingHandCursor
+
         onEntered: { root.isHovered = true }
         onExited: { root.isHovered = false }
-        acceptedButtons: Qt.LeftButton | Qt.RightButton
-        onClicked: (mouse) => {
-           if (mouse.button === Qt.LeftButton) {
-               System.BluetoothManager.menuOpen = !System.BluetoothManager.menuOpen
 
-           }
-           else if (mouse.button === Qt.RightButton) {
-               System.BluetoothManager.toggleBluetooth()
-           }
+        acceptedButtons: Qt.LeftButton
+        onClicked: System.Mic.toggleMute()
+
+        onWheel: (wheel) => {
+            if (wheel.angleDelta.y > 0) {
+               System.Mic.volumeUp()
+            } else {
+               System.Mic.volumeDown()
+            }
         }
     }
 }

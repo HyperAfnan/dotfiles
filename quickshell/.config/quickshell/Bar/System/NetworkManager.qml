@@ -11,6 +11,20 @@ Singleton {
     readonly property AccessPoint active: networks.find(n => n.active) ?? null
     property bool wifiEnabled: true
     readonly property bool scanning: rescanProc.running
+    property real lastRxBytes: 0
+    property real downloadSpeed: 0
+    property string downloadSpeedText: formatSpeed(downloadSpeed)
+    property bool menuOpen: false
+
+    function formatSpeed(bytesPerSec: real): string {
+        if (bytesPerSec < 1024) {
+            return Math.round(bytesPerSec) + " B/s";
+        } else if (bytesPerSec < 1024 * 1024) {
+            return (bytesPerSec / 1024).toFixed(1) + " KB/s";
+        } else {
+            return (bytesPerSec / (1024 * 1024)).toFixed(1) + " MB/s";
+        }
+    }
 
     function enableWifi(enabled: bool): void {
         const cmd = enabled ? "on" : "off";
@@ -48,144 +62,198 @@ Singleton {
         }
     }
 
-    Process {
-        id: wifiStatusProc
+   Process {
+      id: wifiStatusProc
 
-        running: true
-        command: ["nmcli", "radio", "wifi"]
-        environment: ({
-                LANG: "C",
-                LC_ALL: "C"
-            })
-        stdout: StdioCollector {
-            onStreamFinished: {
-                const status = text.trim();
-                root.wifiEnabled = status === "enabled";
-            }
-        }
-    }
+      running: true
+      command: ["nmcli", "radio", "wifi"]
+      environment: ({
+               LANG: "C",
+               LC_ALL: "C"
+         })
+      stdout: StdioCollector {
+         onStreamFinished: {
+               const status = text.trim();
+               root.wifiEnabled = status === "enabled";
+         }
+      }
+   }
 
-    Process {
-        id: enableWifiProc
+   Process {
+      id: enableWifiProc
 
-        onExited: {
-            root.getWifiStatus();
-            getNetworks.running = true;
-        }
-    }
+      onExited: {
+         root.getWifiStatus();
+         getNetworks.running = true;
+      }
+   }
 
-    Process {
-        id: rescanProc
+   Process {
+      id: rescanProc
 
-        command: ["nmcli", "dev", "wifi", "list", "--rescan", "yes"]
-        onExited: {
-            getNetworks.running = true;
-        }
-    }
+      command: ["nmcli", "dev", "wifi", "list", "--rescan", "yes"]
+      onExited: {
+         getNetworks.running = true;
+      }
+   }
 
-    Process {
-        id: connectProc
+   Process {
+      id: connectProc
 
-        stdout: SplitParser {
-            onRead: getNetworks.running = true
-        }
-    }
+      stdout: SplitParser {
+         onRead: getNetworks.running = true
+      }
+   }
 
-    Process {
-        id: disconnectProc
+   Process {
+      id: disconnectProc
 
-        stdout: SplitParser {
-            onRead: getNetworks.running = true
-        }
-    }
+      stdout: SplitParser {
+         onRead: getNetworks.running = true
+      }
+   }
 
-    Process {
-        id: getNetworks
+   Process {
+      id: getNetworks
 
-        running: true
-        command: ["nmcli", "-g", "ACTIVE,SIGNAL,FREQ,SSID,BSSID,SECURITY", "d", "w"]
-        environment: ({
-                LANG: "C",
-                LC_ALL: "C"
-            })
-        stdout: StdioCollector {
-            onStreamFinished: {
-                const PLACEHOLDER = "STRINGWHICHHOPEFULLYWONTBEUSED";
-                const rep = new RegExp("\\\\:", "g");
-                const rep2 = new RegExp(PLACEHOLDER, "g");
+      running: true
+      command: ["nmcli", "-g", "ACTIVE,SIGNAL,FREQ,SSID,BSSID,SECURITY", "d", "w"]
+      environment: ({
+               LANG: "C",
+               LC_ALL: "C"
+         })
+      stdout: StdioCollector {
+         onStreamFinished: {
+               const PLACEHOLDER = "STRINGWHICHHOPEFULLYWONTBEUSED";
+               const rep = new RegExp("\\\\:", "g");
+               const rep2 = new RegExp(PLACEHOLDER, "g");
 
-                const allNetworks = text.trim().split("\n").map(n => {
-                    const net = n.replace(rep, PLACEHOLDER).split(":");
-                    const network = {
-                        active: net[0] === "yes",
-                        strength: parseInt(net[1]),
-                        frequency: parseInt(net[2]),
-                        ssid: net[3],
-                        bssid: net[4]?.replace(rep2, ":") ?? "",
-                        security: net[5] || ""
-                    };
-                    return network;
-                }).filter(n => n.ssid && n.ssid.length > 0);
+               const allNetworks = text.trim().split("\n").map(n => {
+                  const net = n.replace(rep, PLACEHOLDER).split(":");
+                  const network = {
+                     active: net[0] === "yes",
+                     strength: parseInt(net[1]),
+                     frequency: parseInt(net[2]),
+                     ssid: net[3],
+                     bssid: net[4]?.replace(rep2, ":") ?? "",
+                     security: net[5] || ""
+                  };
+                  return network;
+               }).filter(n => n.ssid && n.ssid.length > 0);
 
-                const activeNetwork = allNetworks.find(n => n.active);
-                const networkMap = new Map();
-                for (const network of allNetworks) {
-                    const existing = networkMap.get(network.ssid);
-                    if (!existing) {
-                        networkMap.set(network.ssid, network);
-                    } else {
-                        if (network.active && !existing.active) {
-                            networkMap.set(network.ssid, network);
-                        } else if (!network.active && !existing.active) {
-                            if (network.strength > existing.strength) {
-                                networkMap.set(network.ssid, network);
-                            }
-                        }
-                    }
-                }
+               const activeNetwork = allNetworks.find(n => n.active);
+               const networkMap = new Map();
+               for (const network of allNetworks) {
+                  const existing = networkMap.get(network.ssid);
+                  if (!existing) {
+                     networkMap.set(network.ssid, network);
+                  } else {
+                     if (network.active && !existing.active) {
+                           networkMap.set(network.ssid, network);
+                     } else if (!network.active && !existing.active) {
+                           if (network.strength > existing.strength) {
+                              networkMap.set(network.ssid, network);
+                           }
+                     }
+                  }
+               }
 
-                const networks = Array.from(networkMap.values());
+               const networks = Array.from(networkMap.values());
 
-                const rNetworks = root.networks;
+               const rNetworks = root.networks;
 
-                const destroyed = rNetworks.filter(rn => !networks.find(n => n.frequency === rn.frequency && n.ssid === rn.ssid && n.bssid === rn.bssid));
-                for (const network of destroyed)
-                    rNetworks.splice(rNetworks.indexOf(network), 1).forEach(n => n.destroy());
+               const destroyed = rNetworks.filter(rn => !networks.find(n => n.frequency === rn.frequency && n.ssid === rn.ssid && n.bssid === rn.bssid));
+               for (const network of destroyed)
+                  rNetworks.splice(rNetworks.indexOf(network), 1).forEach(n => n.destroy());
 
-                for (const network of networks) {
-                    const match = rNetworks.find(n => n.frequency === network.frequency && n.ssid === network.ssid && n.bssid === network.bssid);
-                    if (match) {
-                        match.lastIpcObject = network;
-                    } else {
-                        const newAp = apComp.createObject(root, {
-                            lastIpcObject: network
-                        });
-                        if (newAp) {
-                            rNetworks.push(newAp);
-                        } else {
-                        }
-                    }
-                }
+               for (const network of networks) {
+                  const match = rNetworks.find(n => n.frequency === network.frequency && n.ssid === network.ssid && n.bssid === network.bssid);
+                  if (match) {
+                     match.lastIpcObject = network;
+                  } else {
+                     const newAp = apComp.createObject(root, {
+                           lastIpcObject: network
+                     });
+                     if (newAp) {
+                           rNetworks.push(newAp);
+                     } else {
+                     }
+                  }
+               }
 
-            }
-        }
-    }
+         }
+      }
+   }
 
-    component AccessPoint: QtObject {
-        required property var lastIpcObject
-        readonly property string ssid: lastIpcObject.ssid
-        readonly property string bssid: lastIpcObject.bssid
-        readonly property int strength: lastIpcObject.strength
-        readonly property int frequency: lastIpcObject.frequency
-        readonly property bool active: lastIpcObject.active
-        readonly property string security: lastIpcObject.security
-        readonly property bool isSecure: security.length > 0
-    }
+   Process {
+      id: networkSpeed
+      command: ["sh", "-c", "cat /sys/class/net/wl*/statistics/rx_bytes 2>/dev/null | head -1"]
+      stdout: SplitParser {
+         onRead: data => {
+               var currentBytes = parseFloat(data.trim());
+               if (root.lastRxBytes > 0) {
+                  root.downloadSpeed = currentBytes - root.lastRxBytes;
+               }
+               root.lastRxBytes = currentBytes;
+         }
+      }
+   }
 
-    Component {
-        id: apComp
 
-        AccessPoint {}
-    }
+   Process {
+      id: launchNmgui
+      command: ["nmgui"]
+      onExited: {
+         root.menuOpen = false
+      }
+   }
+
+   Process {
+      id: killNmgui
+      command: ["sh", "-c", "pkill -f nmgui || killall nmgui || true"]
+      onExited: {
+         root.menuOpen = false
+      }
+   }
+
+   function toggleGUI() {
+      if(!root.menuOpen){
+         root.menuOpen = true
+         launchNmgui.running = true
+      } else {
+         killNmgui.running = true
+      }
+   }
+
+   function startNetworkMonitoring() {
+      networkSpeed.running = true;
+   }
+
+   Timer {
+      id: speedTimer
+      interval: 1000
+      running: root.wifiEnabled
+      repeat: true
+      onTriggered: root.startNetworkMonitoring()
+   }
+
+
+
+   component AccessPoint: QtObject {
+      required property var lastIpcObject
+      readonly property string ssid: lastIpcObject.ssid
+      readonly property string bssid: lastIpcObject.bssid
+      readonly property int strength: lastIpcObject.strength
+      readonly property int frequency: lastIpcObject.frequency
+      readonly property bool active: lastIpcObject.active
+      readonly property string security: lastIpcObject.security
+      readonly property bool isSecure: security.length > 0
+   }
+
+   Component {
+      id: apComp
+
+      AccessPoint {}
+   }
 
 }
